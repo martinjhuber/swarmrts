@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Swarm RTS (v0.3.2)</title>
+    <script src="js/swarmrts_util.js"></script>
+    <script src="js/swarmrts_effects.js"></script>
+    <script src="js/swarmrts_entities.js"></script>
+    <script src="js/swarmrts_ai.js"></script>
+    <script src="js/swarmrts_renderer.js"></script>
+    <script src="js/swarmrts_game.js"></script>
+    <script src="js/swarmrts_ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/swarmrts.css">
+</head>
+<body>
+
+<div class="canvasWrapper"><canvas id="bgCanvas" width="1200" height="680" class="canvas" style="position: absolute; z-index: 0"></canvas><canvas id="fgCanvas" width="1200" height="680" class="canvas" style="position: absolute; z-index: 1"></canvas><div id="help" class="help hidden"><div class="helpContent">
+<div class="close">Click to close</div>
+<h1>Swarm RTS v0.3.2</h1>
+<h2>What is it about?</h2>
+
+<p>Swarm RTS is a simplistic real-time strategy game. The goal is to capture flags and crush
+the opponent into the ground.</p>
+
+<h2>Basics</h2>
+
+<p>Two factions, Blue and Red, are competing in the game. The playing field consists of 4 to 8 flags which can be captured by either faction. A captured flag spawns new units for the faction by which it has been captured.</p>
+
+<p>The game ends when all units of the opponent have been destroyed.</p>
+
+<p>You can either play against one CPU AI opponent or watch two CPU AIs battle it out.</p>
+
+<h2>Flags</h2>
+
+<p>Both factions start with one captured flag, the headquarter, on opposite ends of the field. All other flags are neutral and are waiting to be captured. A flag is captured when units are in close proximity to the flag.</p>
+
+<p>Fully captured flags (100%) spawn new units periodically until they have been neutralized (0%). They start spawing units as soon they have been fully captured again. If the capture/influence circle around the flag has the colour of the faction, it produces units.</p>
+
+<p>The headquarter is like a regular flag except that it spawns twice as many units and is a little harder to capture. At the beginning of a game, the headquarters spawn a certain amount of starting units.</p>
+
+<p>Units that are near a fully captured flags of their own faction take 25% less damage.</p>
+
+<h2>Units</h2>
+
+<p>There are two different units: Fighters and Destroyers.</p>
+
+<p>Fighters are displayed as small rectangles, Destroyers as slightly bigger triangles. Both can move and shoot in any direction. Destroyers are stronger and have heavier attack weapons than Fighters but move slower and evade less attacks. Both unit types capture flags with the same speed. A small fraction of spawned units are Destoyers. The player cannot influence which a kind of unit a flag spawns next.</p>
+
+<h2>Controls</h2>
+
+<p>The left mouse button is used to select, the right mouse button issues commands.</p>
+
+<p>As in many other RTS games, a selection rectangle can be made by pressing the left mouse button and dragging the mouse over the playing field. A right click will order all units inside the rectangle to move to the location of the mouse pointer. The selection can be removed by a left-click.</p>
+
+<p>The game also features a waypoint system: Press the left mouse button and do not move the mouse. A circle appears which will grow until the button is released. The waypoint destination can be set by a right-click. A move command will be given permanently to all idle (non-moving, non-attacking, non-capturing) units within the circle. Waypoints can also be cancelled: Remove any selection (left-click) and right-click inside waypoint circle.</p>
+
+<p>The game can be paused any time by clicking the button in the bottom right corner or by pressing the 'P' key on the keyboard. During a pause, waypoints can be created and removed and multiple rectangle selection commands can be issued.</p>
+
+<h2>Credits</h2>
+
+<p>The game is purely written in JavaScript and is using the HTML5 Canvas element for its graphics. No third-party libraries are used. The game was tested in Chrome 39, Firefox 34, and Internet Explorer 11. Much older browser versions will definitely not work.</p>
+
+<p>Copyright 2014, Martin Huber, <a href="http://mjh.at/">mjh.at</a></p>
+
+<h3>Planned features</h3>
+<p>
+    <li>Gameplay balancing</li>
+    <li>Make AI more intelligent</li>
+    <li>Graphical enhancements</li>
+    <li>More unit types?</li>
+</p>
+
+<h3>Changelog</h3>
+
+<p>
+    <i>v0.3.2 - 2014-12-28</i><br>
+    <li>Attack visualization has a little bit more variance in it.</li>
+    <li>Slightly changed AI behaviour.</li>
+</p>
+
+<p>
+    <i>v0.3.1 - 2014-12-28</i><br>
+    <li>Fixed a bug in the flag capture calculation logic.</li>
+    <li>Made it possible to issue multiple rectangle selection commands while game is paused.</li>
+    <li>Starting units are shown inside the capture area of the HQ before the game begins.</li>
+</p>
+
+<p>
+    <i>v0.3.0 - 2014-12-28</i><br>
+    <li>Made all game state updates independent from the frame rate. Instead of making all game decisions based on the &quot;tick&quot;, the actual passed time between two game state updates is taken. By using <i>requestAnimationFrame</i> instead if <i>setInterval</i>, a huge performance boost is achieved.</li>
+    <li>This change also led to minor unit and flag balancing changes.</li>
+    <li>Graphical enhancements: up to 60 FPS and parallax scrolling for the stars in the background ;)</li>
+</p>
+
+<p>
+    <i>v0.2.4 - 2014-12-27</i><br>
+    <li>Performance enhancements.</li>
+</p>
+
+<p>
+    <i>v0.2.3 - 2014-12-27</i><br>
+    <li>Changed destination allocation algorithm.</li>
+    <li>Changed pause key to space bar (instead of 'P').</li>
+</p>
+
+<p>
+    <i>v0.2.2 - 2014-12-26</i><br>
+    <li>Unit movement does no longer give a penalty to the attack damage, but...</li>
+    <li>Units near fully captured flags of the own faction block 25% of damage. That should make comebacks easier.</li>
+    <li>AI decision making enhanced: no more blind attacking when game is balanced; even in defensive mode, the AI tries to take opportunies.</li>
+    <li>Invalid player control options are no longer offered in the pause menu.</li>
+    <li>Pause/unpause possible by pressing the 'P' key.</li>
+    <li>Graphical enhancements: Flag capture/influence radius is shown; flags now look like actual flags ;)</li>
+</p>
+
+<p>
+    <i>v0.2.1 - 2014-12-26</i><br>
+    <li>First release.</li>
+</p>
+</div></div></div>
+
+<script>
+window.onload = function () {
+    SwarmRTSGame.start();
+};
+</script>
+
+</body>
+</html>
